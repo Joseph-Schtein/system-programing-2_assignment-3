@@ -1,5 +1,6 @@
 #include "solver.hpp"
 #include <complex>
+#include <stdexcept>
 
 using namespace std;
 using namespace solver;
@@ -10,7 +11,7 @@ double solver::solve(RealVariable& f){
 	double result = 0;
 	if(f.a == 0 && f.b == 0){
 		delete f.e;
-		throw invalid_argument("there is a problem to solve this equasion");	
+		throw invalid_argument("There is no vriable in this equasion");
 	}
 	
 		
@@ -25,7 +26,8 @@ double solver::solve(RealVariable& f){
 		result = (f.b*f.b)-(4*f.a*f.c);
 		if(result < 0){
 			delete f.e;
-			throw invalid_argument("Delta is negative and becaue of that you don't have answer in R world");	
+			throw invalid_argument("There is no real solution");
+				
 		}
 
 		result = sqrt(result);
@@ -203,13 +205,27 @@ RealVariable& solver::operator==(RealVariable& x, double y){
 	}
 }
 
+
+RealVariable& solver::operator==(double x, RealVariable& y){
+	if(!y.e){
+		RealVariable *tmp = new RealVariable(0,1,-x);
+		tmp->e = tmp;
+		return *tmp;
+	}
+
+	else{	
+		y.c -= x;
+		return y;
+	}
+}
+
 //------------------------------------------------------------------------------------------------------------
 
 std::complex<double> solver::solve(ComplexVariable& f){
 	std::complex<double> result = 0;
 	if(real(f.a) == 0 && imag(f.a) == 0 && real(f.b) == 0 && imag(f.b) == 0){
 		delete f.e;
-		throw invalid_argument("there is a problem to solve this equasion");	
+		throw invalid_argument("There is no vriable in this equasion");
 	}
 	
 		

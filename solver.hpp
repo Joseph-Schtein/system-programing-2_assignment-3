@@ -48,6 +48,7 @@ namespace solver{
 		
 			friend RealVariable& operator==(RealVariable& x, RealVariable& y);
 			friend RealVariable& operator==(RealVariable& x, double y);
+			friend RealVariable& operator==(double x, RealVariable& y);
 	};
 
 	double solve(RealVariable& f);
