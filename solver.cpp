@@ -427,3 +427,19 @@ ComplexVariable& solver::operator==(ComplexVariable& x, std::complex<double> y){
 	}
 }
 
+
+
+ComplexVariable& solver::operator==(std::complex<double> x, ComplexVariable& y){
+	
+	if(!y.e){
+		ComplexVariable *tmp = new ComplexVariable(0,1,-x);
+		tmp->e = tmp;
+		return *tmp;
+	}
+
+	else{	
+		y.c -= x;
+		return y;
+	}
+}
+
